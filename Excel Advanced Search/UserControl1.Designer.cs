@@ -133,7 +133,6 @@
             this.Controls.Add(this.textBox1);
             this.Name = "UserControl1";
             this.Size = new System.Drawing.Size(267, 305);
-            this.Load += new System.EventHandler(this.UserControl1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -36,10 +36,10 @@ namespace Excel_Advanced_Search
             }
         }
 
-        private void UpdateButtonLabel()
+        public void UpdateButtonLabel()
         {
             var pane = Globals.ThisAddIn?.customTaskPane;
-            button1.Label = pane?.Visible == true ? "Hide Search Panel" : "Show Search Panel";
+            button1.Label = pane?.Visible == true ? "Hide Search" : "Show Search";
         }
     }
 }

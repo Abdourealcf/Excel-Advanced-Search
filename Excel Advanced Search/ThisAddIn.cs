@@ -15,6 +15,7 @@ namespace Excel_Advanced_Search
             // Initialize the custom pane
             userControl = new UserControl1();
             customTaskPane = CustomTaskPanes.Add(userControl, "Advanced Search");
+            customTaskPane.VisibleChanged += customTaskPaneVisibleChanged;
 
             // Position and show by default
             customTaskPane.DockPosition =
@@ -23,6 +24,11 @@ namespace Excel_Advanced_Search
 
             // Subscribe to Excel events
             Application.SheetSelectionChange += OnSheetSelectionChange;
+        }
+
+        private void customTaskPaneVisibleChanged(object sender, EventArgs e)
+        {
+            Globals.Ribbons.Ribbon1.UpdateButtonLabel();
         }
 
         private void ThisAddIn_Shutdown(object sender, EventArgs e)

@@ -18,11 +18,6 @@ namespace Excel_Advanced_Search
             InitializeComponent();
         }
 
-        private void UserControl1_Load(object sender, EventArgs e)
-        {
-            // Optional: initialization logic here
-        }
-
         private async void TextBox3_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) ||
