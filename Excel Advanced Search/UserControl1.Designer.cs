@@ -46,7 +46,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(145, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.textBox1.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
             // 
             // textBox2
             // 
@@ -54,7 +54,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(145, 20);
             this.textBox2.TabIndex = 1;
-            this.textBox2.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.textBox2.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
             // 
             // textBox3
             // 
@@ -97,7 +97,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(145, 20);
             this.textBox4.TabIndex = 1;
-            this.textBox4.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.textBox4.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
             // 
             // label4
             // 

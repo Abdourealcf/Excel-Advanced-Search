@@ -1,6 +1,8 @@
 ﻿using Microsoft.Office.Tools.Ribbon;
 using System;
 using System.Windows.Forms;
+using Microsoft.Office.Tools;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Excel_Advanced_Search
 {
@@ -13,17 +15,13 @@ namespace Excel_Advanced_Search
             InitializeComponent();
         }
 
-        private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
-        {
-            UpdateButtonLabel();
-        }
 
         private void TogglePaneButton_Click(object sender, RibbonControlEventArgs e)
         {
             try
             {
-                Globals.ThisAddIn?.ToggleSearchPane();
-                UpdateButtonLabel();
+                Excel.Workbook activeWorkbook = Globals.ThisAddIn.Application.ActiveWorkbook;
+                Globals.ThisAddIn?.ToggleSearchPane(Globals.ThisAddIn.Panes[activeWorkbook]);
             }
             catch (Exception ex)
             {
@@ -36,10 +34,5 @@ namespace Excel_Advanced_Search
             }
         }
 
-        public void UpdateButtonLabel()
-        {
-            var pane = Globals.ThisAddIn?.customTaskPane;
-            button1.Label = pane?.Visible == true ? "Hide Search" : "Show Search";
-        }
     }
 }
