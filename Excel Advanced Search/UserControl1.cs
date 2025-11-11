@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Excel_Advanced_Search
 {
     public partial class UserControl1 : UserControl
     {
-        
+
 
         public UserControl1()
         {
@@ -86,17 +88,24 @@ namespace Excel_Advanced_Search
                 string cellText = columnValues[i, 1]?.ToString();
                 if (string.IsNullOrWhiteSpace(cellText)) continue;
 
-                foreach (string searchTerm in searchTerms)
+                
+
+                for (int indx = 0; indx < searchTerms.Length; indx++)
                 {
-                    if (string.IsNullOrWhiteSpace(searchTerm)) continue;
+                    if (string.IsNullOrWhiteSpace(searchTerms[indx])) continue;
                     if (CultureInfo.CurrentCulture.CompareInfo
-                                        .IndexOf(cellText, searchTerm, CompareOptions.IgnoreCase) >= 0)
+                                        .IndexOf(cellText, searchTerms[indx], CompareOptions.IgnoreCase) >= 0)
                     {
                         var row = new object[colCount];
                         for (int col = 1; col <= colCount; col++)
                             row[col - 1] = tableValues[i, col];
 
-                        matchedRows.Add(row);
+                        //to prevent duplicates
+                        if (searchTerms[indx].Length > 1 && indx >0)
+                        {
+                            if (matchedRows.FirstOrDefault(obj => obj != null && obj.SequenceEqual(row)) == null) matchedRows.Add(row);
+                        }
+                        else matchedRows.Add(row);
                     }
                 }
 
@@ -110,7 +119,6 @@ namespace Excel_Advanced_Search
                 for (int r = 0; r < matchedRows.Count; r++)
                     for (int c = 0; c < colCount; c++)
                         outputArray[r, c] = matchedRows[r][c];
-
                 Range outputRange = destinationSheet.Range[$"{outputStartLetter}{outputRow}"]
                     .Resize[matchedRows.Count, colCount];
                 outputRange.Value2 = outputArray;
@@ -119,7 +127,7 @@ namespace Excel_Advanced_Search
 
         #region Utility Methods
 
-        
+
 
         private static void ClearOutputRange(Worksheet sheet, string startLetter, string endLetter, int startRow)
         {
@@ -137,7 +145,7 @@ namespace Excel_Advanced_Search
             }
         }
 
-        
+
 
         public static void TextBox_Enter(object sender, EventArgs e)
         {
@@ -159,5 +167,14 @@ namespace Excel_Advanced_Search
         }
 
         #endregion
+
+        private void textBox_MouseHover(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox txtbx = (System.Windows.Forms.TextBox)sender;
+
+            string message = (txtbx.Name == "textBox1") ? "Select the table Range" : (txtbx.Name == "textBox2") ? "Select the search column Range" : (txtbx.Name == "textBox3") ? "Enter search words separated with '|'" : "Select the output Cell";
+
+            toolTip1.Show(message, txtbx);
+        }
     }
 }

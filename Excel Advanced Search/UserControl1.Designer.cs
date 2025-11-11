@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -38,6 +39,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // textBox1
@@ -46,7 +48,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(145, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
+            this.textBox1.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // textBox2
             // 
@@ -54,7 +56,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(145, 20);
             this.textBox2.TabIndex = 1;
-            this.textBox2.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
+            this.textBox2.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // textBox3
             // 
@@ -63,6 +65,7 @@
             this.textBox3.Size = new System.Drawing.Size(233, 20);
             this.textBox3.TabIndex = 2;
             this.textBox3.TextChanged += new System.EventHandler(this.TextBox3_TextChanged);
+            this.textBox3.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // label1
             // 
@@ -97,7 +100,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(145, 20);
             this.textBox4.TabIndex = 1;
-            this.textBox4.Enter += new System.EventHandler(UserControl1.TextBox_Enter);
+            this.textBox4.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // label4
             // 
@@ -149,5 +152,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
