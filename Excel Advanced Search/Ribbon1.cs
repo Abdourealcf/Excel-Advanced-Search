@@ -1,7 +1,6 @@
 ﻿using Microsoft.Office.Tools.Ribbon;
 using System;
 using System.Windows.Forms;
-using Microsoft.Office.Tools;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Excel_Advanced_Search

@@ -1,6 +1,5 @@
 ﻿using System;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -76,18 +75,19 @@ namespace Excel_Advanced_Search
                     
 
                     myControl.ActiveControl.Text = $"{sheetName}!{cellAddress}";
-                    //force the TextBox_Enter event for textbox2 to update the new column range visually.
-                    UserControl1.TextBox_Enter(myControl.Controls["textBox2"],  EventArgs.Empty);
+
+                    //Update the new column range visually.
+                    UserControl1.SelectExcelRange($"{sheetName}!{cellAddress}");
                     return;
                 }
 
                 myControl.ActiveControl.Text = $"{sheetName}!{cellAddress}";
 
-                Debug.WriteLine($"Active cell changed to: {sheetName}!{cellAddress}");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[Error] OnSheetSelectionChange: {ex.Message}");
+                MessageBox.Show($"Excel operation failed: {ex.Message}",
+                                            "Excel Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

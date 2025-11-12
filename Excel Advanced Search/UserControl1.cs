@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools;
 
 namespace Excel_Advanced_Search
 {
@@ -88,8 +88,6 @@ namespace Excel_Advanced_Search
                 string cellText = columnValues[i, 1]?.ToString();
                 if (string.IsNullOrWhiteSpace(cellText)) continue;
 
-                
-
                 for (int indx = 0; indx < searchTerms.Length; indx++)
                 {
                     if (string.IsNullOrWhiteSpace(searchTerms[indx])) continue;
@@ -99,13 +97,8 @@ namespace Excel_Advanced_Search
                         var row = new object[colCount];
                         for (int col = 1; col <= colCount; col++)
                             row[col - 1] = tableValues[i, col];
-
-                        //to prevent duplicates
-                        if (searchTerms[indx].Length > 1 && indx >0)
-                        {
-                            if (matchedRows.FirstOrDefault(obj => obj != null && obj.SequenceEqual(row)) == null) matchedRows.Add(row);
-                        }
-                        else matchedRows.Add(row);
+                        matchedRows.Add(row);
+                        break;//Stop checking other keywords — the row is already in matchedRows, so additional matches would be redundant.
                     }
                 }
 
@@ -147,7 +140,7 @@ namespace Excel_Advanced_Search
 
 
 
-        public static void TextBox_Enter(object sender, EventArgs e)
+        private void TextBox_Enter(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox TextBox = (System.Windows.Forms.TextBox)sender;
 
@@ -155,8 +148,9 @@ namespace Excel_Advanced_Search
             SelectExcelRange(TextBox.Text);
         }
 
-        private static void SelectExcelRange(string rangeRef)
+        public static void SelectExcelRange(string rangeRef)
         {
+            if (string.IsNullOrWhiteSpace(rangeRef)) return;
             //sleep for 50ms to prevent mutiple fast selection by user
             System.Threading.Thread.Sleep(50);
             var app = Globals.ThisAddIn.Application;
@@ -172,9 +166,18 @@ namespace Excel_Advanced_Search
         {
             System.Windows.Forms.TextBox txtbx = (System.Windows.Forms.TextBox)sender;
 
-            string message = (txtbx.Name == "textBox1") ? "Select the table Range" : (txtbx.Name == "textBox2") ? "Select the search column Range" : (txtbx.Name == "textBox3") ? "Enter search words separated with '|'" : "Select the output Cell";
+            string message = (txtbx.Name == "textBox1")
+            ? "Select the range of the table that contains the data to be searched."
+            : (txtbx.Name == "textBox2")
+            ? "Select the column range where you want to search for the keywords."
+            : (txtbx.Name == "textBox3")
+            ? "Enter one or more keywords, separated by the '|' character."
+            : "Select the cell where the search results should be displayed.";
 
             toolTip1.Show(message, txtbx);
         }
+
+       
+
     }
 }

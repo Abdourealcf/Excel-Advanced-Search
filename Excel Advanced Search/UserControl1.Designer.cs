@@ -48,6 +48,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(145, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Enter += new System.EventHandler(this.TextBox_Enter);
             this.textBox1.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // textBox2
@@ -56,6 +57,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(145, 20);
             this.textBox2.TabIndex = 1;
+            this.textBox2.Enter += new System.EventHandler(this.TextBox_Enter);
             this.textBox2.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // textBox3
@@ -63,7 +65,7 @@
             this.textBox3.Location = new System.Drawing.Point(18, 242);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(233, 20);
-            this.textBox3.TabIndex = 2;
+            this.textBox3.TabIndex = 3;
             this.textBox3.TextChanged += new System.EventHandler(this.TextBox3_TextChanged);
             this.textBox3.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
@@ -99,7 +101,8 @@
             this.textBox4.Location = new System.Drawing.Point(18, 189);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(145, 20);
-            this.textBox4.TabIndex = 1;
+            this.textBox4.TabIndex = 2;
+            this.textBox4.Enter += new System.EventHandler(this.TextBox_Enter);
             this.textBox4.MouseHover += new System.EventHandler(this.textBox_MouseHover);
             // 
             // label4
